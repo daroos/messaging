@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "prettier": "yarn prettier --write 'App.js' 'components/*'"
   },
   "dependencies": {
     "expo": "^33.0.0",
@@ -15,7 +16,8 @@
     "react-native-web": "^0.11.4"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.1.1"
+    "babel-preset-expo": "^5.1.1",
+    "prettier": "^1.18.2"
   },
   "private": true
 }
