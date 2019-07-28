@@ -17,18 +17,21 @@ export default class Status extends React.Component {
   };
 
   async componentWillMount() {
-    this.subscription = NetInfo.addEventListener('connectionChange', this.handleChange);
+    this.subscription = NetInfo.addEventListener(
+      "connectionChange",
+      this.handleChange
+    );
 
     const info = await NetInfo.getConnectionInfo();
 
     this.setState({ info });
-  };
+  }
 
   componentWillUnmount() {
     this.subscription.remove();
   }
 
-  handleChange = (info) => {
+  handleChange = info => {
     this.setState({ info });
   };
 
