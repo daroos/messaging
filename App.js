@@ -15,6 +15,7 @@ import {
   createLocationMessage,
   createTextMessage
 } from "./utils/MessageUtils";
+import Toolbar from './components/Toolbar';
 
 export default class App extends React.Component {
   state = {
@@ -27,7 +28,8 @@ export default class App extends React.Component {
         longitude: -122.4324
       })
     ],
-    fullscreenImageId: null
+    fullscreenImageId: null,
+    isInputFocused: false,
   };
 
   componentWillMount() {
@@ -49,6 +51,26 @@ export default class App extends React.Component {
   componentWillUnmount() {
     this.subscription.remove();
   }
+
+  handlePressToolbarCamera = () => {
+
+  };
+
+  handlePressToolbarLocation = () => {
+
+  };
+
+  handleChangeFocus = (isFocused) => {
+    this.setState({ isInputFocused: isFocused });
+  };
+
+  handleSubmit = (text) => {
+    const { messages } = this.state;
+
+    this.setState({
+      messages: [createTextMessage(text), ...messages],
+    });
+  };
 
   dismissFullscreenImage = () => {
     this.setState({ fullscreenImageId: null });
@@ -79,7 +101,7 @@ export default class App extends React.Component {
         );
         break;
       case "image":
-        this.setState({ fullscreenImageId: id });
+        this.setState({ fullscreenImageId: id, isInputFocused: false });
         break;
       default:
         break;
@@ -125,7 +147,19 @@ export default class App extends React.Component {
   }
 
   renderToolbar() {
-    return <View style={styles.toolbar}></View>;
+    const { isInputFocused } = this.state;
+
+    return (
+      <View style={styles.toolbar}>
+        <Toolbar
+          isFocused={isInputFocused}
+          onSubmit={this.handleSubmit}
+          onChangeFocus={this.handleChangeFocus}
+          onPressCamera={this.handlePressToolbarCamera}
+          onPressLocation={this.handlePressToolbarLocation}
+        />
+      </View>
+    );
   }
 
   render() {
