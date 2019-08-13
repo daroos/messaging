@@ -16,6 +16,7 @@ import {
   createTextMessage
 } from "./utils/MessageUtils";
 import Toolbar from './components/Toolbar';
+import ImageGrid from './components/ImageGrid';
 
 export default class App extends React.Component {
   state = {
@@ -54,6 +55,14 @@ export default class App extends React.Component {
 
   handlePressToolbarCamera = () => {
 
+  };
+
+  handlePressImage = (uri) => {
+    const { messages } = this.state;
+
+    this.setState({
+      messages: [createImageMessage(uri), ...messages],
+    });
   };
 
   handlePressToolbarLocation = () => {
@@ -157,7 +166,11 @@ export default class App extends React.Component {
   }
 
   renderInputMethodEditor() {
-    return <View style={styles.inputMethodEditor}></View>;
+    return (
+      <View style={styles.inputMethodEditor}>
+        <ImageGrid onPressImage={this.handlePressImage} />
+      </View>
+    );
   }
 
   renderToolbar() {
